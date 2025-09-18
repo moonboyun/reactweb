@@ -1,0 +1,32 @@
+.join-wrap {
+  width: 400px;
+  margin: 0 auto;
+}
+.join-wrap .input-wrap {
+  padding: 10px 30px;
+}
+.join-button-box {
+  padding: 20px 30px;
+}
+.join-botton-box > button {
+  width: 100%;
+}
+
+.login-wrap {
+  width: 500px;
+  margin: 0 auto;
+}
+.login-wrap .input-wrap {
+  padding: 30px;
+}
+.login-button-box {
+  padding: 30px;
+}
+.login-button-box > button {
+  width: 100px;
+}
+.member-link-box {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
