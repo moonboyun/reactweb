@@ -1,15 +1,15 @@
 import { Link, useNavigate } from "react-router-dom";
 import "./default.css";
 import { useState } from "react";
-const Header = (props) => {
-  const isLogin = props.isLogin;
-  const setIsLogin = props.setIsLogin;
+import { useRecoilState } from "recoil";
+import { loginIdState, memberTypeState } from "../utils/RecoilData";
+const Header = () => {
   return (
     <header className="header">
       <div className="logo">
         <Link to="/">Jollidang</Link>
         <MainNavi />
-        <HeaderLink isLogin={isLogin} setIsLogin={setIsLogin} />
+        <HeaderLink />
       </div>
     </header>
   );
@@ -36,20 +36,22 @@ const MainNavi = () => {
   );
 };
 
-const HeaderLink = (props) => {
-  const isLogin = props.isLogin;
-  const setIsLogin = props.setIsLogin;
+const HeaderLink = () => {
+  const [memberId, setMemberId] = useRecoilState(loginIdState);
+  const [memberType, setMemberType] = useRecoilState(memberTypeState);
+  const isLogin = false;
   const navigate = useNavigate();
   const logout = () => {
-    setIsLogin(false);
+    setMemberId("");
+    setMemberType(0);
     navigate("/");
   };
   return (
     <ul>
-      {isLogin ? (
+      {memberId !== "" && memberType !== 0 ? (
         <>
           <li>
-            <Link to="#">MyPage</Link>
+            <Link to="/member/mypage">MyPage</Link>
           </li>
           <li>
             <Link to="#" onClick={logout}>

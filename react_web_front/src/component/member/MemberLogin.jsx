@@ -1,10 +1,16 @@
 import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
 import Swal from "sweetalert2";
+import { loginIdState, memberTypeState } from "../utils/RecoilData";
 
-const MemberLogin = (props) => {
-  const setIsLogin = props.setIsLogin;
+const MemberLogin = () => {
+  //recoil에 선언한 데이터(state)를 가져오는 방법
+  const [memberId, setMemberId] = useRecoilState(loginIdState);
+  console.log(memberId);
+  const [memberType, setMemberType] = useRecoilState(memberTypeState);
+  console.log(memberType);
   const [member, setMember] = useState({
     memberId: "",
     memberPw: "",
@@ -16,7 +22,9 @@ const MemberLogin = (props) => {
       axios
         .post(`${backServer}/member/login`, member)
         .then((res) => {
-          setIsLogin(true);
+          //로그인 성공 시점에 데이터를 저장
+          setMemberId(res.data.memberId);
+          setMemberType(res.data.memberType);
           naviagte("/");
         })
         .catch((err) => {
