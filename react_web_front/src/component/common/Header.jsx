@@ -3,6 +3,7 @@ import "./default.css";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
 import { loginIdState, memberTypeState } from "../utils/RecoilData";
+import axios from "axios";
 const Header = () => {
   return (
     <header className="header">
@@ -44,6 +45,8 @@ const HeaderLink = () => {
   const logout = () => {
     setMemberId("");
     setMemberType(0);
+    delete axios.defaults.headers.common["Authorization"];
+    window.localStorage.removeItem("refreshToken");
     navigate("/");
   };
   return (

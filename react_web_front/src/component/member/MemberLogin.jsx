@@ -8,9 +8,7 @@ import { loginIdState, memberTypeState } from "../utils/RecoilData";
 const MemberLogin = () => {
   //recoil에 선언한 데이터(state)를 가져오는 방법
   const [memberId, setMemberId] = useRecoilState(loginIdState);
-  console.log(memberId);
   const [memberType, setMemberType] = useRecoilState(memberTypeState);
-  console.log(memberType);
   const [member, setMember] = useState({
     memberId: "",
     memberPw: "",
@@ -22,9 +20,14 @@ const MemberLogin = () => {
       axios
         .post(`${backServer}/member/login`, member)
         .then((res) => {
+          console.log(res);
           //로그인 성공 시점에 데이터를 저장
           setMemberId(res.data.memberId);
           setMemberType(res.data.memberType);
+          //로그인 이후에 axios를 통한 요청을 수행한 경우 자동으로 axios에 추가하는 로직
+          axios.defaults.headers.common["Authorization"] = res.data.accessToken;
+          //로그인을 성공하면 갱신을 위한 refreshToken을 브라우저에 저장
+          window.localStorage.setItem("refreshToken", res.data.refreshToken);
           naviagte("/");
         })
         .catch((err) => {

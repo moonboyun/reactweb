@@ -17,7 +17,7 @@ const MemberMain = () => {
       .catch((err) => {
         console.log(err);
       });
-  });
+  }, []);
   /*
   const navigate = useNavigate();
   const isLogin = isRecoilValue(isLoginState);
