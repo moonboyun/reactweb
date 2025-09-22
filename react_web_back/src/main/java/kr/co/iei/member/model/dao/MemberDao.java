@@ -13,4 +13,10 @@ public interface MemberDao {
 
 	MemberDTO selectOneMember(String memberId);
 
+	int updateMember(MemberDTO member);
+
+	int deleteMember(String memberId);
+
+	int changePw(MemberDTO member);
+
 }

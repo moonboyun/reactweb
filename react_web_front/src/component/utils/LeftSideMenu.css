@@ -1,0 +1,29 @@
+.side-menu a {
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.side-menu .active-link > span {
+  color: var(--main2);
+  font-family: ns-b;
+}
+.side-menu .active-link > svg {
+  fill: var(--main2); /*mui 아이콘 필 바꾸는 css*/
+}
+
+.my-info {
+  width: 80%;
+  margin: 0 auto;
+}
+.my-info .input-item > input {
+  border-bottom: none;
+  padding: 0;
+}
+.button-zone {
+  width: 80%;
+  margin: 30px auto;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}

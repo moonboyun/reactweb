@@ -8,3 +8,8 @@ npm install sweetalert2
 2025-09-19 9:43 문보윤
 npm install recoil
 npm install recoil-persist
+
+2025-09-22 10:05 문보윤
+npm install @mui/material @emotion/react @emotion/styled
+npm install @mui/icons-material @mui/material @emotion/styled @emotion/reacteb\react_web_front>
+l @emotion/styled @emotion/reacteb\react_web_front>

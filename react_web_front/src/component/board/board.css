@@ -1,0 +1,13 @@
+.board-list {
+  min-width: 1200;
+}
+
+.pagenation > li {
+  display: flex;
+  align-items: center;
+}
+.pagenation > li > span {
+  display: block;
+  cursor: pointer;
+  width: 100%;
+}

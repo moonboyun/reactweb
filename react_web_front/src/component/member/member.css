@@ -30,3 +30,25 @@
   justify-content: center;
   gap: 30px;
 }
+
+.mypage-wrap {
+  width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  gap: 10px;
+}
+.mypage-side {
+  width: 20%;
+}
+.mypage-content {
+  flex-grow: 1;
+}
+.account-box {
+  margin-bottom: 20px;
+}
+.account-box > div {
+  font-size: 20px;
+  font-family: ns-b;
+  text-align: center;
+  color: var(--main2);
+}

@@ -3,7 +3,9 @@ package kr.co.iei.member.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -47,7 +49,6 @@ public class MemberController {
 		}else {
 			return ResponseEntity.status(404).build();
 		}
-		
 	}
 	
 	@GetMapping(value = "/{memberId}")
@@ -56,5 +57,39 @@ public class MemberController {
 		System.out.println(loginMember);
 		MemberDTO member = memberService.selectOneMember(memberId);
 		return ResponseEntity.ok(member);
+	}
+	
+	@GetMapping(value="/refresh")
+	public ResponseEntity<LoginMemberDTO> refresh(@RequestHeader("Authorization") String token){
+		LoginMemberDTO loginMember = jwtUtils.checkToken(token);
+		String accessToken = jwtUtils.createAccessToken(loginMember.getMemberId(), loginMember.getMemberType());
+		String refreshToken = jwtUtils.createRefreshToken(loginMember.getMemberId(), loginMember.getMemberType());
+		loginMember.setAccessToken(accessToken);
+		loginMember.setRefreshToken(refreshToken);
+		return ResponseEntity.ok(loginMember);
+	}
+	
+	@PatchMapping
+	public ResponseEntity<Integer> updateMember(@RequestBody MemberDTO member){
+		int result = memberService.updateMember(member);
+		return ResponseEntity.ok(result);
+	}
+	
+	@DeleteMapping(value = "{memberId}")
+	public ResponseEntity<Integer> deleteMember(@PathVariable String memberId){
+		int result = memberService.deleteMember(memberId);
+		return ResponseEntity.ok(result);
+	}
+	
+	@PostMapping(value = "/pw-check")
+	public ResponseEntity<Integer> pwCheck(@RequestBody MemberDTO member){
+		int result = memberService.checkPw(member);
+		return ResponseEntity.ok(result);
+	}
+	
+	@PatchMapping(value = "/password")
+	public ResponseEntity<Integer> changePw(@RequestBody MemberDTO member){
+		int result = memberService.changePw(member);
+		return ResponseEntity.ok(result);
 	}
 }

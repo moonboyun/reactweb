@@ -53,7 +53,38 @@ public class MemberService {
 
 	public MemberDTO selectOneMember(String memberId) {
 		MemberDTO member = memberDao.selectOneMember(memberId);
+		member.setMemberPw(null);
 		return member;
+	}
+
+	@Transactional
+	public int updateMember(MemberDTO member) {
+		int result = memberDao.updateMember(member);
+		return result;
+	}
+
+	@Transactional
+	public int deleteMember(String memberId) {
+		int result = memberDao.deleteMember(memberId);
+		return result;
+	}
+
+	public int checkPw(MemberDTO member) {
+		MemberDTO m = memberDao.selectOneMember(member.getMemberId());
+		if(encoder.matches(member.getMemberPw(), m.getMemberPw())) {
+			//암호화된 패스워드 비교는 matches로 함. 앞이 평문, 뒤가 암호화
+			return 1;
+		}else {
+			return 0;
+		}
+	}
+
+	@Transactional
+	public int changePw(MemberDTO member) {
+		String encPw = encoder.encode(member.getMemberPw());
+		member.setMemberPw(encPw);
+		int result = memberDao.changePw(member);
+		return result;
 	}
 	
 	
