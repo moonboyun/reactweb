@@ -14,6 +14,7 @@ import { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import axios from "axios";
 import BoardList from "./component/board/BoardList";
+import BoardWrite from "./component/board/BoardWrite";
 //import { useState } from "react";
 //export default로 내보내면 {} 안써야함 씨댕 안 그러면 오류남
 function App() {
@@ -53,7 +54,6 @@ function App() {
         });
     } else {
       //재로그인 안하는 경우
-      console.log("refresh토큰이 없어!!!!!!!!!");
       setAuthready(true);
     }
     setAuthready(true);
@@ -68,6 +68,7 @@ function App() {
           <Route path="/member/login" element={<MemberLogin />} />
           <Route path="/member/*" element={<MemberMain />} />
           <Route path="/board/list" element={<BoardList />} />
+          <Route path="/board/write" element={<BoardWrite />} />
         </Routes>
       </main>
       <Footer />

@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @Data
 @Alias(value="boardFile")
 public class BoardFileDTO {
-	private  int boardFileNo;
-	private int boardNO;
+	private int boardFileNo;
+	private int boardNo;
 	private String filename;
 	private String filepath;
 

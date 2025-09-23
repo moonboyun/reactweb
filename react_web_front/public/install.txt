@@ -13,3 +13,7 @@ npm install recoil-persist
 npm install @mui/material @emotion/react @emotion/styled
 npm install @mui/icons-material @mui/material @emotion/styled @emotion/reacteb\react_web_front>
 l @emotion/styled @emotion/reacteb\react_web_front>
+
+2025-09-23 11:49 문보윤
+npm install react-quill
+npm install quill-image-resize-module-react

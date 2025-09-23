@@ -18,4 +18,18 @@
             from board_tbl order by board_no desc)b) 
         where rnum between #{start} and #{end}
    </select>
+   
+   <select id="getBoardNo" resultType="int">
+   		select board_seq.nextval from dual
+   </select>
+   
+   <insert id="insertBoard">
+   		insert into board_tbl 
+   		values(#{boardNo}, #{boardTitle}, #{boardThumb}, #{boardWriter},#{boardContent}, to_char(sysdate, 'yyyy-mm-dd'))
+   </insert>
+   
+   <insert id="insertBoardFile">
+   		insert into board_file_tbl
+   		values(board_file_seq.nextval, #{boardNo},#{filename},#{filepath})
+   </insert>
 </mapper>

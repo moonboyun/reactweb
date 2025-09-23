@@ -1,13 +1,20 @@
 const PageNavigation = (props) => {
   const pi = props.pi;
   const reqPage = props.reqPage;
-  const setReqPage = props.setReqPage;
+  const setReqPage = props.setReqpage;
   //paging을 하는 JSX가 저장된 배열
   const arr = new Array();
   //제일 앞으로(1페이지로 이동)
   arr.push(
     <li key="first-page">
-      <span className="material-icons page-item">first_page</span>
+      <span
+        className="material-icons page-item"
+        onClick={() => {
+          setReqPage(1);
+        }}
+      >
+        first_page
+      </span>
     </li>
   );
   // 이전 페이지(현재 요청페이지보다 -1인 페이지)
