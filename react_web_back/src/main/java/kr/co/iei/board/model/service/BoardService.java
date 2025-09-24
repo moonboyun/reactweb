@@ -47,4 +47,43 @@ public class BoardService {
 		}
 		return result;
 	}
+
+	public BoardDTO selectOneBoard(int boardNo) {
+		BoardDTO board = boardDao.selectOneBoard(boardNo);
+		List<BoardFileDTO> boardFileList = boardDao.selectBoardFileList(boardNo);
+		board.setBoardFileList(boardFileList);
+		return board;
+	}
+
+	@Transactional
+	public BoardDTO deleteBoard(int boardNo) {
+		BoardDTO board = boardDao.selectOneBoard(boardNo);
+		List<BoardFileDTO> boardFileList = boardDao.selectBoardFileList(boardNo);
+		board.setBoardFileList(boardFileList);
+		int result = boardDao.deleteBoard(boardNo);
+		if(result > 0) {
+			return board;
+		}else {
+			return null;
+		}
+		
+	}
+
+	@Transactional
+	public BoardDTO updateBoard(BoardDTO board, List<BoardFileDTO> boardFileList) {
+		BoardDTO b = boardDao.selectOneBoard(board.getBoardNo());
+		int result = boardDao.updateBoard(board);
+		//새 첨부파일이 있다면 추가하는 작업
+		for(BoardFileDTO boardFile : boardFileList) {
+			result += boardDao.insertBoardFile(boardFile);
+		}
+		//삭제한 파일이 있으면 조회 후 삭제
+		if(board.getDelFileNo() != null) {
+			List<BoardFileDTO> delFileList = boardDao.selectDeleteBoardFileList(board.getDelFileNo());
+			b.setBoardFileList(delFileList);//삭제하기 전에 조회한 파일 목록
+			result += boardDao.deleteBoardFile(board.getDelFileNo());
+		}
+		//수정 전 board정보, 삭제전 boarㅇFile 정보를 board타입으로 리턴
+		return b;
+	}
 }

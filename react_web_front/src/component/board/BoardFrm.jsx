@@ -10,6 +10,14 @@ const BoardFrm = (props) => {
   const setThumbnail = props.setThumbnail;
   const boardFile = props.boardFile; //전송용
   const setBoardFile = props.setBoardFile;
+  //writer에서는 전송 안 하고 update만 전송한 값 추출
+  //writer에서는 해당키로 전송 한 했으니까 아래 값이 다 언디파인드
+  const boardImg = props.boardImg;
+  const setBoardImg = props.setBoardImg;
+  const fileList = props.fileList;
+  const setFileList = props.setFileList;
+  const delFileNo = props.delFileNo;
+  const setDelFileNo = props.setDelFileNo;
 
   const [memberId, setMemberId] = useRecoilValue(loginIdState);
   //섬네일 화면 출력용 state
@@ -29,6 +37,10 @@ const BoardFrm = (props) => {
       reader.readAsDataURL(files[0]);
       reader.onloadend = () => {
         setShowThumb(reader.result);
+        if (boardImg) {
+          //보드이미지를 바꾸면 보드이미지를 null로 바꾸면서 아래 3항을 동작하게 함
+          setBoardImg(null);
+        }
       };
     } else {
       setThumbnail(null);
@@ -53,7 +65,16 @@ const BoardFrm = (props) => {
   return (
     <div>
       <div className="board-thumb-wrap">
-        {showThumb === null ? (
+        {/*boardImg는 update에서 생성한 것임 글쓰기 할때는 언디파인드
+        null일 수도 있고 언디파인드일 수도 있어서 그냥 자체로 돌려서 true false로 검사하게 함*/}
+        {boardImg ? (
+          <img
+            src={`${import.meta.env.VITE_BACK_SERVER}/board/thumb/${boardImg}`}
+            onClick={() => {
+              thumbRef.current.click();
+            }}
+          />
+        ) : showThumb === null ? (
           <img
             src="/image/default_img.png"
             onClick={() => {
@@ -121,6 +142,23 @@ const BoardFrm = (props) => {
               <th>첨부파일 목록</th>
               <td>
                 <div className="board-file-wrap">
+                  {fileList &&
+                    fileList.map((boardFile, i) => {
+                      const deleteFile = () => {
+                        const newFileList = fileList.filter((item, index) => {
+                          return index !== i;
+                        });
+                        setFileList(newFileList);
+                        //기존파일중 삭제하는 파일번호를 배열로 저장
+                        setDelFileNo([...delFileNo, boardFile.boardFileNo]);
+                      };
+                      return (
+                        <p key={"boardFile" + i}>
+                          <span className="filename">{boardFile.filename}</span>
+                          <DeleteIcon onClick={deleteFile} />
+                        </p>
+                      );
+                    })}
                   {showFileList.map((filename, i) => {
                     //파일을 지우는 함수
                     //i라는 값을 이용해서 boardFile도 같이 지우려고

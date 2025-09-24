@@ -4,7 +4,7 @@ import "./board.css";
 import PageNavigation from "../utils/PageNavigation";
 import { useRecoilValue } from "recoil";
 import { isLoginState } from "../utils/RecoilData";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 const BoardList = () => {
   const [boardList, setBoardList] = useState([]);
   const [reqPage, setReqpage] = useState(1);
@@ -49,8 +49,14 @@ const BoardList = () => {
 
 const BoardItem = (props) => {
   const board = props.board;
+  const navigate = useNavigate();
   return (
-    <li className="posting-item">
+    <li
+      className="posting-item"
+      onClick={() => {
+        navigate(`/board/view/${board.boardNo}`);
+      }}
+    >
       <div className="posting-img">
         <img
           src={
