@@ -50,7 +50,7 @@ const BoardView = () => {
   return (
     <section className="section board-view-wrap">
       <div className="page-title">게시글</div>
-      {/*자바스크립트는 && 연산자를 쓸 때 안에 객체가 언디파인드나 null이 아니면 true로 처리*/}
+      {/*자바스크립트는 && 연산자를 쓸 때 안에 객체가 언디파인드나 null이면 false로 처리*/}
       {board && (
         <div className="board-view-content">
           <div className="board-view-info">
@@ -89,10 +89,10 @@ const BoardView = () => {
               </div>
             </div>
           </div>
-          {/*html 태그러 저장된 데이터를 화면에 출력하려면 머스태치 문법이 아니라 속성을 이용해서 처리*/}
+          {/*html 태그로 저장된 데이터를 화면에 출력하려면 머스태치 문법이 아니라 속성을 이용해서 처리*/}
           <div
             className="board-content-wrap"
-            dangerouslySetInnerHTML={{ __html: board.boardContent }}
+            dangerouslySetInnerHTML={{ __html: board.boardContent }} //content는 태그로 저장되어있음
           ></div>
           {memberId === board.boardWriter && (
             <div className="view-btn-zone">
@@ -124,7 +124,7 @@ const FileItem = (props) => {
       })
       .then((res) => {
         console.log(res);
-        //서버에서 받은 데이터를 자바스트립트의 BLob객체로 변환
+        //서버에서 받은 데이터를 자바스트립트의 Blob객체로 변환
         const blob = new Blob([res.data]);
         //blob을 이용해서 데이터를 다운로드 할 수 있는 url을 생성
         const fileUrl = window.URL.createObjectURL(blob);

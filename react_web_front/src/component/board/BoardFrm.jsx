@@ -11,7 +11,7 @@ const BoardFrm = (props) => {
   const boardFile = props.boardFile; //전송용
   const setBoardFile = props.setBoardFile;
   //writer에서는 전송 안 하고 update만 전송한 값 추출
-  //writer에서는 해당키로 전송 한 했으니까 아래 값이 다 언디파인드
+  //writer에서는 해당키로 전송 안 했으니까 아래 값이 다 언디파인드
   const boardImg = props.boardImg;
   const setBoardImg = props.setBoardImg;
   const fileList = props.fileList;
@@ -38,7 +38,8 @@ const BoardFrm = (props) => {
       reader.onloadend = () => {
         setShowThumb(reader.result);
         if (boardImg) {
-          //보드이미지를 바꾸면 보드이미지를 null로 바꾸면서 아래 3항을 동작하게 함
+          //보드이미지를 바꾸면 보드이미지를 null로 바꾸면서 아래 3항연산자를 동작하게 함
+          //처음에 검사하는게 boardImg라서 새 이미지 있을 때 얘가 null이여야만 그 아래가 동작할 수 있음
           setBoardImg(null);
         }
       };

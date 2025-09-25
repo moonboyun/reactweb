@@ -30,7 +30,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.iei.Utils.FileUtil;
-import kr.co.iei.Utils.PageInfoUtils;
 import kr.co.iei.board.model.dto.BoardDTO;
 import kr.co.iei.board.model.dto.BoardFileDTO;
 import kr.co.iei.board.model.service.BoardService;
@@ -141,7 +140,7 @@ public class BoardController {
 		}
 	}//deleteBoard
 	
-	@PatchMapping
+	@PatchMapping								//delFileNo는 
 	public ResponseEntity<Integer> updateBoard(@ModelAttribute BoardDTO board,
 												@ModelAttribute MultipartFile thumbnail,
 												@ModelAttribute MultipartFile[] boardFile){
@@ -179,5 +178,5 @@ public class BoardController {
 			}
 		}
 		return ResponseEntity.ok(1);
-	}
+	}//updateBoard
 }
