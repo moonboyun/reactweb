@@ -3,6 +3,7 @@ import {
   isLoginState,
   loginIdState,
   authReadyState,
+  memberTypeState,
 } from "../utils/RecoilData";
 import Swal from "sweetalert2";
 import { Route, Routes, useNavigate } from "react-router-dom";
@@ -14,6 +15,7 @@ import ChangePw from "./ChangePw";
 
 const MemberMain = () => {
   const [authReady, setAuthready] = useRecoilState(authReadyState);
+  const [memberType, setMemberType] = useRecoilState(memberTypeState);
   const [member, setMember] = useState(null);
   const navigate = useNavigate();
   const isLogin = useRecoilState(isLoginState);
@@ -22,10 +24,18 @@ const MemberMain = () => {
       navigate("/");
     }
   }, []);
-  const [menus, setMenus] = useState([
-    { url: "/member/info", text: "내정보" },
-    { url: "/member/changePw", text: "비밀번호 변경" },
-  ]);
+  const [menus, setMenus] = useState(
+    memberType === 1
+      ? [
+          { url: "/member/info", text: "내정보" },
+          { url: "/member/changePw", text: "비밀번호 변경" },
+          { url: "/admin", text: "관리자 페이지" },
+        ]
+      : [
+          { url: "/member/info", text: "내정보" },
+          { url: "/member/changePw", text: "비밀번호 변경" },
+        ]
+  );
   /*
   const navigate = useNavigate();
   const isLogin = isRecoilValue(isLoginState);

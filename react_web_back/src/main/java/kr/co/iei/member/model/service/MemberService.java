@@ -1,11 +1,17 @@
 package kr.co.iei.member.model.service;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.iei.Utils.JwtUtils;
+import kr.co.iei.Utils.PageInfo;
+import kr.co.iei.Utils.PageInfoUtils;
 import kr.co.iei.member.model.dao.MemberDao;
 import kr.co.iei.member.model.dto.LoginMemberDTO;
 import kr.co.iei.member.model.dto.MemberDTO;
@@ -21,6 +27,9 @@ public class MemberService {
 	
 	@Autowired
 	private JwtUtils jwtUtils;
+	
+	@Autowired
+	private PageInfoUtils pageUtil;
 
 	@Transactional
 	public int insertMember(MemberDTO member) { 
@@ -84,6 +93,25 @@ public class MemberService {
 		String encPw = encoder.encode(member.getMemberPw());
 		member.setMemberPw(encPw);
 		int result = memberDao.changePw(member);
+		return result;
+	}
+
+	public Map adminMemberList(int reqPage) {
+		int numPerPage = 2;
+		int pageNaviSize = 5;
+		int totalCount = memberDao.totalCount();
+		PageInfo pi = pageUtil.getPageInfo(reqPage, numPerPage, pageNaviSize, totalCount);
+		List<MemberDTO> memberList = memberDao.selectMemberList(pi);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberList", memberList);
+		map.put("pi", pi);
+		
+		return map;
+	}
+
+	@Transactional
+	public int updateMemberType(MemberDTO member) {
+		int result = memberDao.updateMemberType(member);
 		return result;
 	}
 	
