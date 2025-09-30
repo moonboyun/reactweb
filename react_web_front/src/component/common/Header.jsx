@@ -26,7 +26,7 @@ const MainNavi = () => {
           <Link to="/board/list">게시판</Link>
         </li>
         <li>
-          <Link to="#">메뉴2</Link>
+          <Link to="/chat">바닐라톡</Link>
         </li>
         <li>
           <Link to="#">메뉴3</Link>

@@ -18,6 +18,7 @@ import BoardWrite from "./component/board/BoardWrite";
 import BoardView from "./component/board/BoardView";
 import BoardUpdate from "./component/board/BoardUpdate";
 import AdminMain from "./component/admin/adminMain";
+import AllMemberChat from "./component/utils/AllMemberChat";
 //import { useState } from "react";
 //export default로 내보내면 {} 안써야함 씨댕 안 그러면 오류남
 function App() {
@@ -75,6 +76,7 @@ function App() {
           <Route path="/board/view/:boardNo" element={<BoardView />} />
           <Route path="/board/update/:boardNo" element={<BoardUpdate />} />
           <Route path="/admin/*" element={<AdminMain />} />
+          <Route path="/chat" element={<AllMemberChat />} />
         </Routes>
       </main>
       <Footer />

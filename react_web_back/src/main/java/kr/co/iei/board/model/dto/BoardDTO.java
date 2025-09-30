@@ -19,6 +19,7 @@ public class BoardDTO {
 	private String boardWriter;
 	private String boardContent;
 	private String boardDate;
+	private int boardStatus;
 	private List<BoardFileDTO> boardFileList;
 	private int[] delFileNo;
 	

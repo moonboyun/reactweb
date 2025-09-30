@@ -86,4 +86,23 @@ public class BoardService {
 		//수정 전 board정보, 삭제전 boarㅇFile 정보를 board타입으로 리턴
 		return b;
 	}
+
+	public Map adminBoardList(int reqPage) {
+		//게시물 조회, 페이징 작업에 필요한 데이터를 모두 취합해서 되돌려 줌
+		int numPerPage = 12;		//한 페이지당 게시물 수
+		int pageNaviSize = 5;		//페이지 네비 길이
+		int totalCount = boardDao.adminTotalCount();
+		PageInfo pi = pageInfoUtil.getPageInfo(reqPage, numPerPage, pageNaviSize, totalCount); 
+		List boardList = boardDao.adminSelectBoardList(pi);
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("boardList", boardList);
+		map.put("pi", pi);
+		return map;
+	}
+
+	@Transactional
+	public int adminBoardUpdate(BoardDTO board) {
+		int result = boardDao.adminBoardUpdate(board);
+		return result;
+	}
 }
